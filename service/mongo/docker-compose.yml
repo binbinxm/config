@@ -1,0 +1,33 @@
+version: '2'
+
+### Creates a named network with the default bridge driver
+# The network is shared between restheart and mongodb only
+# See: https://docs.docker.com/engine/userguide/networking/dockernetworks/
+# See: https://docs.docker.com/engine/reference/commandline/network_create/
+networks:
+    default:
+        external:
+            name: web_backend
+       
+### Uncomment to create a permanent, named data volume
+# This makes much easier to identify where the mongodb data is stored on host
+# See: https://docs.docker.com/engine/userguide/containers/dockervolumes/#mount-a-shared-storage-volume-as-a-data-volume
+#volumes:
+#   datavolume:
+
+services:
+   mongodb:
+      # select a MongoDB 3.x version
+      image: mongo:3.4
+      ### Name the container explicitly
+      container_name: restheart-dev-mongo
+      ### Uncomment to use the permanent data volume
+      volumes:
+          - /mnt/db/mongo:/data/db
+      #   - datavolume:/data/db
+      networks:
+         - default
+      ### As the mongo container starts unauthenticated, for security reasons comment out the below ports
+      ### so that mongodb can be accessed from restheart only
+      #ports:
+      #   - "27017:27017"
