@@ -1,7 +1,7 @@
 #!/bin/sh
 
-full_name="mynodered"
-name="mynodered"
+full_name="nodered"
+name="nodered"
 image="nodered/node-red-docker"
 
 #if [ $# -ne 1 ]; then
@@ -21,10 +21,10 @@ docker pull $image
 echo starting service...
 docker run \
 -dt \
--p 1883:1883 \
 --name $name \
+-p 1883:1883 \
 --restart always \
---net web_backend \
+--net backend \
 -v /mnt/nodered:/data \
 $image
 
@@ -32,5 +32,3 @@ echo $full_name server created, exposing port 1883...
 
 
 # -e FLOWS=my_flows.json \
-
-

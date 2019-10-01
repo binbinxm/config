@@ -23,20 +23,16 @@ docker run \
 -dt \
 --restart always \
 --name $name \
---net web_backend \
+--net backend \
 -v /mnt/notebook:/mnt \
 $image \
--c "jupyter notebook --notebook-dir=/mnt \
+-c "jupyter notebook \
+--notebook-dir=/mnt \
 --ip='*' \
 --NotebookApp.password='sha1:52cd1c27f679:e7462eee42905d2b55ed2308fd4a3cd9acc75be4' \
---port=8844 \
+--port=80 \
 --allow-root \
---no-browser"
-
-#-v /mnt/notenook/ssl:/mnt/ssl \
-
-#--NotebookApp.keyfile='/mnt/ssl/privkey.pem' \
-#--NotebookApp.certfile='/mnt/ssl/fullchain.pem' \
+--no-browser" 
 
 echo $full_name server created, monitoring port 8844...
 

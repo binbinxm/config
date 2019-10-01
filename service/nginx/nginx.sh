@@ -2,7 +2,7 @@
 
 full_name="nginx_server"
 name="nginx"
-image="nginx"
+image="nginx:latest"
 
 #if [ $# -ne 1 ]; then
 #    echo usage: $0 password
@@ -20,13 +20,14 @@ docker rm $name
 
 echo starting service...
 docker run \
---name $name \
---restart unless-stopped \
---net web_backend \
--p 443:443 \
--v $PWD/nginx.conf:/etc/nginx/nginx.conf:ro \
--v /mnt/ssl:/mnt/ssl:ro \
--d nginx
+	--name $name \
+	--restart always\
+	--net backend \
+	-p 80:80 \
+	-p 443:443 \
+	-v $PWD/nginx.conf:/etc/nginx/nginx.conf:ro \
+	-v /mnt/ssl:/mnt/ssl:ro \
+	-d $image
 
 echo $full_name server created, monitoring port 443...
 
