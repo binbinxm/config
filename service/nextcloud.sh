@@ -33,6 +33,8 @@ echo starting service...
 docker run \
 -d \
 --restart always \
+--cpus 1 \
+--memory 1024M \
 --name $name \
 --link mysql:db \
 --net backend \
