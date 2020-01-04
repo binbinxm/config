@@ -22,6 +22,7 @@ echo starting service...
 docker run \
 -dt \
 --name $name \
+-e TZ="Asia/Shanghai" \
 -p 1883:1883 \
 --restart always \
 --net backend \
